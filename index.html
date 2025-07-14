@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>Demande de Mission - GEOSKILLS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
       --deep-purple: hsl(248, 84%, 11%);
@@ -11,6 +11,8 @@
       --medium-blue: hsl(206, 82%, 40%);
       --bright-green: hsl(158, 95%, 40%);
     }
+
+    * { box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -29,37 +31,53 @@
       padding: 2rem;
       border-radius: 1rem;
       max-width: 500px;
-      width: 100%;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
       text-align: center;
       color: var(--bright-green);
+      margin-bottom: 1rem;
     }
 
     label {
       display: block;
       margin-top: 1rem;
-      font-weight: bold;
+      font-weight: 600;
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
+      padding: 0.6rem;
+      margin-top: 0.4rem;
       border-radius: 0.5rem;
       border: none;
       background-color: var(--medium-blue);
       color: white;
+      font-size: 1rem;
+      transition: outline 0.3s;
     }
 
-    input::placeholder, textarea::placeholder {
-      color: #e0e0e0;
+    input::placeholder,
+    textarea::placeholder {
+      color: #dcdcdc;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 2px solid var(--bright-green);
     }
 
     button {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       width: 100%;
       padding: 0.75rem;
       background-color: var(--bright-green);
@@ -69,39 +87,42 @@
       font-weight: bold;
       font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease-in-out;
     }
 
     button:hover {
       background-color: #02b37c;
+      transform: scale(1.02);
     }
   </style>
 </head>
 <body>
   <div class="form-container">
     <h2>Demande de Mission</h2>
-    <form action="https://webhook.site/your-n8n-webhook-url" method="post">
-      <label for="nom">Nom du client</label>
-      <input type="text" name="nom" id="nom" placeholder="Nom du client" required>
+    <form action="http://localhost:5678/webhook-test/geoskills-formulaire" method="POST">
+      
+      <label for="nom">Nom</label>
+      <input type="text" name="Nom" id="nom" placeholder="Nom du client" required>
 
       <label for="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="exemple@domaine.com" required>
+      <input type="email" name="Email" id="email" placeholder="exemple@domaine.com" required>
 
       <label for="telephone">Téléphone</label>
-      <input type="text" name="telephone" id="telephone" placeholder="+221 77 000 00 00">
+      <input type="text" name="Téléphone" id="telephone" placeholder="+221 77 000 00 00" required>
 
       <label for="type_mission">Type de mission</label>
-      <select name="type_mission" id="type_mission">
-        <option value="Etude">Etude</option>
+      <select name="Type de mission" id="type_mission" required>
+        <option value="">-- Choisir une option --</option>
+        <option value="Etude">Étude</option>
         <option value="Réparation">Réparation</option>
         <option value="Sondage">Sondage</option>
         <option value="Diagnostic">Diagnostic</option>
       </select>
 
-      <label for="detail">Détail de la demande</label>
-      <textarea name="detail" id="detail" rows="4" placeholder="Décrivez la mission..."></textarea>
+      <label for="detail">Détail</label>
+      <textarea name="Détail" id="detail" rows="4" placeholder="Décrivez la mission..." required></textarea>
 
-      <button type="submit">Soumettre</button>
+      <button type="submit">📤 Soumettre</button>
     </form>
   </div>
 </body>
